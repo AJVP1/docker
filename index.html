@@ -7,308 +7,350 @@
     <title>Comandos de Docker</title>
   </head>
   <body>
-    <h1>Comandos de Docker</h1>
+    <nav>
+      <h2>Índice</h2>
+      <ul>
+        <li><a href="#basicos">Comandos básicos de docker</a></li>
+        <li><a href="#imagenes">Comandos para imágenes</a></li>
+        <li><a href="#contenedores">Comandos para contenedores</a></li>
+        <li><a href="#redes">Comandos para redes</a></li>
+        <li><a href="#orquestacion">Comandos para Orquestación</a></li>
+        <li>
+          <a href="#creacion-imagenes">Creación de imágenes con Docker</a>
+        </li>
+        <li><a href="#volumenes">Volúmenes</a></li>
+        <li><a href="#docker-hub">Publicando imágenes de Docker Hub</a></li>
+        <li>
+          <a href="#conversion"
+            >Conversión de imagen a archivo, y de archivo a imagen</a
+          >
+        </li>
+        <li>
+          <a href="#orquestacion-contenedores"
+            >Orquestación de contenedores de docker</a
+          >
+        </li>
+      </ul>
+    </nav>
 
-    <p>
-      Nota: al descargar Docker desktop para Mac, el Docker engine ya viene
-      instalado dentro de una imagen de Docker engine. Entonces no hay que
-      instalar Docker engine y Docker desktop por separado como en Linux.
-    </p>
+    <main>
+      <h1>Comandos de Docker</h1>
 
-    <h2>Comandos básicos de docker</h2>
-    <ul>
-      <li><code>docker --version</code>: Ver la versión</li>
-      <li><code>docker version</code>: Ver la versión detallada</li>
-      <li><code>docker</code>: Ver todos los comandos de docker</li>
-      <li><code>docker info</code>: Ver cuanto hardware docker está usando</li>
-      <li>
-        <code>docker system df</code>: Ver el uso del disco por parte de docker
-      </li>
-      <li>
-        <code>docker system prune</code>: borra imágenes, contenedores y
-        volúmenes no utilizados
-      </li>
-      <li>
-        <code>docker builder prune</code>: borra el cache de compilación de
-        docker
-      </li>
-    </ul>
+      <p>
+        Nota: al descargar Docker desktop para Mac, el Docker engine ya viene
+        instalado dentro de una imagen de Docker engine. Entonces no hay que
+        instalar Docker engine y Docker desktop por separado como en Linux.
+      </p>
 
-    <h2>Comandos para imágenes</h2>
-    <ul>
-      <li><code>docker images</code>: Listar imágenes locales</li>
-      <li><code>docker images nombre_imagen</code>: ver una imagen</li>
-      <li>
-        <code>docker images --filter=reference=’*caracter’</code>: buscar las
-        imágenes que tenga un carácter especifico
-      </li>
-      <li>
-        <code>docker build -t nombre_imagen:nombre_tag</code>: Construir una
-        imagen a partir de un archivo Dockerfile
-      </li>
-      <li>
-        <code>docker build -t nombre_de_imagen:nombre_tag . --no-cache</code>:
-        Construir una imagen desde un archivo Dockerfile sin la caché
-      </li>
-      <li><code>docker rmi -f id_imagen</code>: Eliminar una imagen</li>
-      <li><code>docker rmi nombre_imagen:nombre_tag</code>: eliminar imagen</li>
-      <li>
-        <code>docker image prune</code>: Eliminar todas las imágenes no
-        utilizadas
-      </li>
-    </ul>
+      <h2 id="basicos">Comandos básicos de docker</h2>
+      <ul>
+        <li><code>docker --version</code>: Ver la versión</li>
+        <li><code>docker version</code>: Ver la versión detallada</li>
+        <li><code>docker</code>: Ver todos los comandos de docker</li>
+        <li>
+          <code>docker info</code>: Ver cuanto hardware docker está usando
+        </li>
+        <li>
+          <code>docker system df</code>: Ver el uso del disco por parte de
+          docker
+        </li>
+        <li>
+          <code>docker system prune</code>: borra imágenes, contenedores y
+          volúmenes no utilizados
+        </li>
+        <li>
+          <code>docker builder prune</code>: borra el cache de compilación de
+          docker
+        </li>
+      </ul>
 
-    <h2>Comandos para contenedores</h2>
-    <ul>
-      <li>
-        <code>docker ps</code>: Para listar los contenedores actualmente en
-        ejecución
-      </li>
-      <li>
-        <code>docker ps --all</code>: Listar todos los contenedores docker (en
-        ejecución y parados)
-      </li>
-      <li><code>docker ps --size</code>: Ver el tamaño de los contenedores</li>
-      <li>
-        <code>docker run --name nombre_contenedor nombre_imagen</code>: Crea y
-        ejecuta un contenedor a partir de una imagen, con un nombre
-        personalizado
-      </li>
-      <li>
-        <code>docker run -p puerto_host:puerto_contenedor nombre_imagen</code>:
-        Ejecutar un contenedor y publicar un puerto(s) del contenedor al host
-      </li>
-      <li>
-        <code>docker run -d nombre_imagen</code>: Ejecutar un contenedor en
-        segundo plano
-      </li>
-      <li>
-        <code>docker run -v ruta_host:ruta_contenedor imagen_nombre</code>: para
-        conectar un volumen a un contenedor
-      </li>
-      <li>
-        <code>docker run --env-file .env nombre_imagen</code>: para pasar
-        variables de entorno desde un archivo
-      </li>
-      <li>
-        <code>docker run --restart unless-stopped nginx </code>: Ejecutar un
-        contenedor con reinicio automático a menos que se detenga manualmente
-      </li>
-      <li>
-        <code>docker start/stop nombre_del_contenedor</code>: Iniciar o detener
-        un contenedor existente
-      </li>
-      <li>
-        <code>docker rm nombre_del_contenedor</code>: Eliminar un contenedor
-        detenido
-      </li>
-      <li>
-        <code>docker exec -it nombre_del_contenedor sh</code>: Abrir un shell
-        dentro de un contenedor en ejecución
-      </li>
-      <li>
-        <code>docker logs -f nombre_contenedor</code>: Obtener y seguir los logs
-        de un contenedor
-      </li>
-      <li>
-        <code>docker inspect nombre_del_contenedor</code>: Inspeccionar un
-        contenedor en ejecución
-      </li>
-      <li>
-        <code>docker stats</code>: Ver las estadísticas de uso de recursos: y se
-        sale con control c
-      </li>
-      <li>
-        <code>docker container prune</code>: borra todos los contenedores
-        detenidos
-      </li>
-    </ul>
+      <h2 id="imagenes">Comandos para imágenes</h2>
+      <ul>
+        <li><code>docker images</code>: Listar imágenes locales</li>
+        <li><code>docker images nombre_imagen</code>: ver una imagen</li>
+        <li>
+          <code>docker images --filter=reference=’*caracter’</code>: buscar las
+          imágenes que tenga un carácter especifico
+        </li>
+        <li>
+          <code>docker build -t nombre_imagen:nombre_tag</code>: Construir una
+          imagen a partir de un archivo Dockerfile
+        </li>
+        <li>
+          <code>docker build -t nombre_de_imagen:nombre_tag . --no-cache</code>:
+          Construir una imagen desde un archivo Dockerfile sin la caché
+        </li>
+        <li><code>docker rmi -f id_imagen</code>: Eliminar una imagen</li>
+        <li>
+          <code>docker rmi nombre_imagen:nombre_tag</code>: eliminar imagen
+        </li>
+        <li>
+          <code>docker image prune</code>: Eliminar todas las imágenes no
+          utilizadas
+        </li>
+      </ul>
 
-    <h2>Comandos para redes</h2>
-    <ul>
-      <li>
-        <code>docker inspect nombre_contenedor</code>: ver la información de un
-        contenedor
-      </li>
-      <li><code>docker network ls</code>: ver las redes</li>
-    </ul>
-    <p>
-      Podemos crear una red con <code>docker network create nombre_red</code> y
-      confirmamos con <code>docker network ls</code>.
-    </p>
-    <p>
-      Para conectar un contenedor a una red usamos
-      <code>docker network connect nombre_red nombre_contenedor</code> y para
-      desconectarlo usamos
-      <code>docker network disconnect nombre_red nombre_contenedor</code>.
-    </p>
+      <h2 id="contenedores">Comandos para contenedores</h2>
+      <ul>
+        <li>
+          <code>docker ps</code>: Para listar los contenedores actualmente en
+          ejecución
+        </li>
+        <li>
+          <code>docker ps --all</code>: Listar todos los contenedores docker (en
+          ejecución y parados)
+        </li>
+        <li>
+          <code>docker ps --size</code>: Ver el tamaño de los contenedores
+        </li>
+        <li>
+          <code>docker run --name nombre_contenedor nombre_imagen</code>: Crea y
+          ejecuta un contenedor a partir de una imagen, con un nombre
+          personalizado
+        </li>
+        <li>
+          <code>docker run -p puerto_host:puerto_contenedor nombre_imagen</code
+          >: Ejecutar un contenedor y publicar un puerto(s) del contenedor al
+          host
+        </li>
+        <li>
+          <code>docker run -d nombre_imagen</code>: Ejecutar un contenedor en
+          segundo plano
+        </li>
+        <li>
+          <code>docker run -v ruta_host:ruta_contenedor imagen_nombre</code>:
+          para conectar un volumen a un contenedor
+        </li>
+        <li>
+          <code>docker run --env-file .env nombre_imagen</code>: para pasar
+          variables de entorno desde un archivo
+        </li>
+        <li>
+          <code>docker run --restart unless-stopped nginx </code>: Ejecutar un
+          contenedor con reinicio automático a menos que se detenga manualmente
+        </li>
+        <li>
+          <code>docker start/stop nombre_del_contenedor</code>: Iniciar o
+          detener un contenedor existente
+        </li>
+        <li>
+          <code>docker rm nombre_del_contenedor</code>: Eliminar un contenedor
+          detenido
+        </li>
+        <li>
+          <code>docker exec -it nombre_del_contenedor sh</code>: Abrir un shell
+          dentro de un contenedor en ejecución
+        </li>
+        <li>
+          <code>docker logs -f nombre_contenedor</code>: Obtener y seguir los
+          logs de un contenedor
+        </li>
+        <li>
+          <code>docker inspect nombre_del_contenedor</code>: Inspeccionar un
+          contenedor en ejecución
+        </li>
+        <li>
+          <code>docker stats</code>: Ver las estadísticas de uso de recursos: y
+          se sale con control c
+        </li>
+        <li>
+          <code>docker container prune</code>: borra todos los contenedores
+          detenidos
+        </li>
+      </ul>
 
-    <h2>Comandos para Orquestación</h2>
-    <ul>
-      <li>
-        <code>docker compose --version</code>: ver la versión de docker compose
-      </li>
-      <li>
-        <code>docker compose build</code>: Construye las imágenes definidas en
-        el docker-compose.yml (usa los Dockerfile de cada servicio si
-        corresponde).
-      </li>
-      <li>
-        <code>docker compose up</code>: crear y arrancar los contenedores
-        definidos en el archivo docker-compose.yml
-      </li>
-      <li>
-        <code>docker compose up -d</code>: crear y arrancar los contenedores en
-        segundo plano
-      </li>
-      <li>
-        <code>docker compose ps</code>: listar los contenedores gestionados por
-        docker compose
-      </li>
-      <li>
-        <code>docker compose stop</code>: detener los contenedores sin
-        eliminarlos
-      </li>
-      <li>
-        <code>docker compose start</code>: iniciar contenedores sin recrearlos
-      </li>
-      <li>
-        <code>docker compose restart</code>: reiniciar los contenedores
-        gestionados por docker compose
-      </li>
-      <li>
-        <code>docker compose down</code>: detener y eliminar los contenedores,
-        redes y volúmenes definidos en el archivo docker-compose.yml
-      </li>
-      <li>
-        <code>docker compose down -v</code>: detener y eliminar los
-        contenedores, redes y volúmenes definidos en el archivo
-        docker-compose.yml
-      </li>
-    </ul>
+      <h2 id="redes">Comandos para redes</h2>
+      <ul>
+        <li>
+          <code>docker inspect nombre_contenedor</code>: ver la información de
+          un contenedor
+        </li>
+        <li><code>docker network ls</code>: ver las redes</li>
+      </ul>
+      <p>
+        Podemos crear una red con
+        <code>docker network create nombre_red</code> y confirmamos con
+        <code>docker network ls</code>.
+      </p>
+      <p>
+        Para conectar un contenedor a una red usamos
+        <code>docker network connect nombre_red nombre_contenedor</code> y para
+        desconectarlo usamos
+        <code>docker network disconnect nombre_red nombre_contenedor</code>.
+      </p>
 
-    <h2>Creación de imágenes con Docker</h2>
-    <p>
-      Podemos tener un archivo del tipo “dockerfile”, que al usar el comando
-      “build” pasa a ser una imagen y usando el comando “run” pasa a ser un
-      contenedor.
-    </p>
-    <p>
-      Vamos a suponer que tenemos una carpeta donde estamos trabajando el
-      proyecto, dentro de la carpeta vamos a crear un archivo llamado
-      “Dockerfile” sin ningún tipo de extensión, Visual Studio Code le coloca el
-      signo de la ballena.
-    </p>
-    <p>
-      Dentro del archivo vamos a escribir la primera: FROM nginx:latest para
-      usar la última versión de nginx que usa un sistema operativo Linux. En la
-      segunda línea vamos a colocar el path de Linux: # path:
-      /usr/share/nginx/html para dejarlo como comentario. En la tercera línea
-      colocamos el archivo a la ruta COPY /nombre_carpeta/usr/share/nginx/html
-    </p>
-    <p>
-      Una vez teniendo el sistema operativo de la imagen que será ngnix y los
-      archivos copiados en la imagen, nos queda crear la imagen. Para esto
-      entramos a la carpeta donde se encuentra el dockerfile a través de la
-      línea de comandos y usamos
-      <code>docker build -t nombre_imagen:nombre_tag</code> y verificamos con
-      <code>docker images</code>.
-    </p>
-    <p>
-      Una vez creada la imagen podemos correrla como contenedor usando
-      <code
-        >docker run -it --rm -d -p 127.0.0.1:8080:80 --name -v
-        ./nombre_carpeta:/usr/share/nginx/html/nombre_carpeta nombre_contenedor
-        nombre_imagen</code
-      >, el parámetro it es para que el contenedor sea interactivo con los
-      archivos que está usando la imagen, el parámetro rm es para eliminar
-      versiones anteriores del contenedor, el parámetro d es para que el
-      contenedor se ejecute en segundo plano, el parámetro p es para colocar el
-      puerto y la dirección ip por el cual nos vamos a comunicar al contenedor,
-      el parámetro v es para definir un volumen al contenedor.
-    </p>
+      <h2 id="orquestacion">Comandos para Orquestación</h2>
+      <ul>
+        <li>
+          <code>docker compose --version</code>: ver la versión de docker
+          compose
+        </li>
+        <li>
+          <code>docker compose build</code>: Construye las imágenes definidas en
+          el docker-compose.yml (usa los Dockerfile de cada servicio si
+          corresponde).
+        </li>
+        <li>
+          <code>docker compose up</code>: crear y arrancar los contenedores
+          definidos en el archivo docker-compose.yml
+        </li>
+        <li>
+          <code>docker compose up -d</code>: crear y arrancar los contenedores
+          en segundo plano
+        </li>
+        <li>
+          <code>docker compose ps</code>: listar los contenedores gestionados
+          por docker compose
+        </li>
+        <li>
+          <code>docker compose stop</code>: detener los contenedores sin
+          eliminarlos
+        </li>
+        <li>
+          <code>docker compose start</code>: iniciar contenedores sin recrearlos
+        </li>
+        <li>
+          <code>docker compose restart</code>: reiniciar los contenedores
+          gestionados por docker compose
+        </li>
+        <li>
+          <code>docker compose down</code>: detener y eliminar los contenedores,
+          redes y volúmenes definidos en el archivo docker-compose.yml
+        </li>
+        <li>
+          <code>docker compose down -v</code>: detener y eliminar los
+          contenedores, redes y volúmenes definidos en el archivo
+          docker-compose.yml
+        </li>
+      </ul>
 
-    <h2>Volúmenes</h2>
-    <p>
-      Un volumen en Docker es equivalente a una carpeta o unidad compartida
-      entre tu computadora y un contenedor que está en ejecución. Esta función
-      crea un puente de comunicación bidireccional, vital para proyectos que
-      requieren una actualización continua del contenido.
-    </p>
-    <p>
-      Es importante subrayar que esta interacción se realiza exclusivamente con
-      contenedores activos, no con imágenes almacenadas.
-    </p>
-    <p>
-      los volúmenes son datos que pueden usar los contenedores mientras estos
-      están corriendo. Para conectar un contenedor a un volumen, lo creamos
-      usando el parámetro v y el path que va a usar.
-    </p>
-    <ul>
-      <li>
-        <code>docker run -v ./html:/usr/share/nginx/html nginx </code>: ejemplo
-        para conectar un volumen
-      </li>
-      <li>
-        <code>docker volumen prune</code>: borra todos los volúmenes no
-        utilizados
-      </li>
-    </ul>
+      <h2 id="creacion-imagenes">Creación de imágenes con Docker</h2>
+      <p>
+        Podemos tener un archivo del tipo “dockerfile”, que al usar el comando
+        “build” pasa a ser una imagen y usando el comando “run” pasa a ser un
+        contenedor.
+      </p>
+      <p>
+        Vamos a suponer que tenemos una carpeta donde estamos trabajando el
+        proyecto, dentro de la carpeta vamos a crear un archivo llamado
+        “Dockerfile” sin ningún tipo de extensión, Visual Studio Code le coloca
+        el signo de la ballena.
+      </p>
+      <p>
+        Dentro del archivo vamos a escribir la primera: FROM nginx:latest para
+        usar la última versión de nginx que usa un sistema operativo Linux. En
+        la segunda línea vamos a colocar el path de Linux: # path:
+        /usr/share/nginx/html para dejarlo como comentario. En la tercera línea
+        colocamos el archivo a la ruta COPY /nombre_carpeta/usr/share/nginx/html
+      </p>
+      <p>
+        Una vez teniendo el sistema operativo de la imagen que será ngnix y los
+        archivos copiados en la imagen, nos queda crear la imagen. Para esto
+        entramos a la carpeta donde se encuentra el dockerfile a través de la
+        línea de comandos y usamos
+        <code>docker build -t nombre_imagen:nombre_tag</code> y verificamos con
+        <code>docker images</code>.
+      </p>
+      <p>
+        Una vez creada la imagen podemos correrla como contenedor usando
+        <code
+          >docker run -it --rm -d -p 127.0.0.1:8080:80 --name -v
+          ./nombre_carpeta:/usr/share/nginx/html/nombre_carpeta
+          nombre_contenedor nombre_imagen</code
+        >, el parámetro it es para que el contenedor sea interactivo con los
+        archivos que está usando la imagen, el parámetro rm es para eliminar
+        versiones anteriores del contenedor, el parámetro d es para que el
+        contenedor se ejecute en segundo plano, el parámetro p es para colocar
+        el puerto y la dirección ip por el cual nos vamos a comunicar al
+        contenedor, el parámetro v es para definir un volumen al contenedor.
+      </p>
 
-    <h2>Publicando imágenes de Docker Hub</h2>
-    <p>
-      Creamos una cuenta en docker hub (es la misma cuenta que de docker
-      desktop), después en la terminal escribimos docker login donde ingresamos
-      user y contraseña.
-    </p>
-    <p>
-      Para crear una imagen que va a ir para docker hub corremos el comando
-      <code>docker build -t nombre_usuario/nombre_imagen:nombre_tag</code>,
-      podemos enviar la imagen a docker hub con el comando
-      <code>docker push nombre_usuario/nombre_imagen:nombre_tag</code>, podemos
-      verificar entrando en el browser a la página de docker hub.
-    </p>
-    <p>
-      Para correr un contenedor de docker hub corremos
-      <code
-        >docker run --name nombre_nuevo_imagen --rm -it -p
-        nombre_usuario/nombre_imagen:nombre_tag</code
-      >, para detener el contenedor usamos control c. El parámetro --rm es para
-      que elimine el contenedor cuando se detenga. El parámetro -it es para que
-      el contenedor sea interactivo. El parámetro -p es para publicar el puerto.
-    </p>
+      <h2 id="volumenes">Volúmenes</h2>
+      <p>
+        Un volumen en Docker es equivalente a una carpeta o unidad compartida
+        entre tu computadora y un contenedor que está en ejecución. Esta función
+        crea un puente de comunicación bidireccional, vital para proyectos que
+        requieren una actualización continua del contenido.
+      </p>
+      <p>
+        Es importante subrayar que esta interacción se realiza exclusivamente
+        con contenedores activos, no con imágenes almacenadas.
+      </p>
+      <p>
+        los volúmenes son datos que pueden usar los contenedores mientras estos
+        están corriendo. Para conectar un contenedor a un volumen, lo creamos
+        usando el parámetro v y el path que va a usar.
+      </p>
+      <ul>
+        <li>
+          <code>docker run -v ./html:/usr/share/nginx/html nginx </code>:
+          ejemplo para conectar un volumen
+        </li>
+        <li>
+          <code>docker volumen prune</code>: borra todos los volúmenes no
+          utilizados
+        </li>
+      </ul>
 
-    <h2>Conversión de imagen a archivo, y de archivo a imagen</h2>
-    <p>
-      podemos guardar una imagen en un archivo comprimido con
-      <code>docker save nombre_imagen &gt; nombre_archivo.rar</code>,
-      confirmamos con “ls” y ya podemos compartir la imagen de docker como un
-      archivo normal.
-    </p>
-    <p>
-      Para poder subir el archivo como una imagen a docker usamos
-      <code>docker load --input nombre_archivo.rar</code> y confirmamos con
-      <code>docker images</code>
-    </p>
+      <h2 id="docker-hub">Publicando imágenes de Docker Hub</h2>
+      <p>
+        Creamos una cuenta en docker hub (es la misma cuenta que de docker
+        desktop), después en la terminal escribimos docker login donde
+        ingresamos user y contraseña.
+      </p>
+      <p>
+        Para crear una imagen que va a ir para docker hub corremos el comando
+        <code>docker build -t nombre_usuario/nombre_imagen:nombre_tag</code>,
+        podemos enviar la imagen a docker hub con el comando
+        <code>docker push nombre_usuario/nombre_imagen:nombre_tag</code>,
+        podemos verificar entrando en el browser a la página de docker hub.
+      </p>
+      <p>
+        Para correr un contenedor de docker hub corremos
+        <code
+          >docker run --name nombre_nuevo_imagen --rm -it -p
+          nombre_usuario/nombre_imagen:nombre_tag</code
+        >, para detener el contenedor usamos control c. El parámetro --rm es
+        para que elimine el contenedor cuando se detenga. El parámetro -it es
+        para que el contenedor sea interactivo. El parámetro -p es para publicar
+        el puerto.
+      </p>
 
-    <h2>Orquestación de contenedores de docker</h2>
-    <p>
-      Docker compose es una herramienta que nos ayuda a administrar los
-      múltiples contenedores que estaremos corriendo al mismo tiempo. Nos sirve
-      para configurar los servicios, redes, volúmenes, configuraciones y
-      secrets.
-    </p>
-    <p>
-      Supongamos que tenemos un proyecto en una carpeta, dentro de esta tenemos
-      una carpeta para el frontend y para el backend. Aquí tenemos que crear el
-      archivo de docker-compose.yml
-    </p>
-    <p>
-      Este archivo necesita la versión, los servicios (la imagen del backend, la
-      carpeta del backend y el puerto que este va a usar), igualmente para el
-      frontend. Por ejemplo:
-    </p>
-    <pre>
+      <h2 id="conversion">
+        Conversión de imagen a archivo, y de archivo a imagen
+      </h2>
+      <p>
+        podemos guardar una imagen en un archivo comprimido con
+        <code>docker save nombre_imagen &gt; nombre_archivo.rar</code>,
+        confirmamos con “ls” y ya podemos compartir la imagen de docker como un
+        archivo normal.
+      </p>
+      <p>
+        Para poder subir el archivo como una imagen a docker usamos
+        <code>docker load --input nombre_archivo.rar</code> y confirmamos con
+        <code>docker images</code>
+      </p>
+
+      <h2 id="orquestacion-contenedores">
+        Orquestación de contenedores de docker
+      </h2>
+      <p>
+        Docker compose es una herramienta que nos ayuda a administrar los
+        múltiples contenedores que estaremos corriendo al mismo tiempo. Nos
+        sirve para configurar los servicios, redes, volúmenes, configuraciones y
+        secrets.
+      </p>
+      <p>
+        Supongamos que tenemos un proyecto en una carpeta, dentro de esta
+        tenemos una carpeta para el frontend y para el backend. Aquí tenemos que
+        crear el archivo de docker-compose.yml
+      </p>
+      <p>
+        Este archivo necesita la versión, los servicios (la imagen del backend,
+        la carpeta del backend y el puerto que este va a usar), igualmente para
+        el frontend. Por ejemplo:
+      </p>
+      <pre>
 version: '3.8'
 services:
   backend:
@@ -327,11 +369,13 @@ services:
       - "8080:80"
     depends_on:
       - backend
-    </pre>
-    <p>
-      En la terminal corremos el comando de docker compose build para tomar la
-      lista de los dockerfile especificados y va a crear una imagen para cada
-      uno. Después corremos docker compose up para crear los contenedores.
-    </p>
+    </pre
+      >
+      <p>
+        En la terminal corremos el comando de docker compose build para tomar la
+        lista de los dockerfile especificados y va a crear una imagen para cada
+        uno. Después corremos docker compose up para crear los contenedores.
+      </p>
+    </main>
   </body>
 </html>
