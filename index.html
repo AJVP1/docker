@@ -17,10 +17,14 @@
     <h2>Comandos básicos de docker</h2>
     <ul>
       <li><code>docker --version</code>: Ver la versión</li>
+      <li><code>docker version</code>: Ver la versión detallada</li>
       <li><code>docker</code>: Ver todos los comandos de docker</li>
       <li><code>docker info</code>: Ver cuanto hardware docker está usando</li>
       <li>
-        <code>docker sistem prune</code>: borra imágenes, contenedores y
+        <code>docker system df</code>: Ver el uso del disco por parte de docker
+      </li>
+      <li>
+        <code>docker system prune</code>: borra imágenes, contenedores y
         volúmenes no utilizados
       </li>
       <li>
@@ -42,7 +46,7 @@
         imagen a partir de un archivo Dockerfile
       </li>
       <li>
-        <code>docker build -t nombre_de_imagen:nombre_tag . -no-cache</code>:
+        <code>docker build -t nombre_de_imagen:nombre_tag . --no-cache</code>:
         Construir una imagen desde un archivo Dockerfile sin la caché
       </li>
       <li><code>docker rmi -f id_imagen</code>: Eliminar una imagen</li>
@@ -76,6 +80,18 @@
       <li>
         <code>docker run -d nombre_imagen</code>: Ejecutar un contenedor en
         segundo plano
+      </li>
+      <li>
+        <code>docker run -v ruta_host:ruta_contenedor imagen_nombre</code>: para
+        conectar un volumen a un contenedor
+      </li>
+      <li>
+        <code>docker run --env-file .env nombre_imagen</code>: para pasar
+        variables de entorno desde un archivo
+      </li>
+      <li>
+        <code>docker run --restart unless-stopped nginx </code>: Ejecutar un
+        contenedor con reinicio automático a menos que se detenga manualmente
       </li>
       <li>
         <code>docker start/stop nombre_del_contenedor</code>: Iniciar o detener
@@ -126,10 +142,54 @@
       <code>docker network disconnect nombre_red nombre_contenedor</code>.
     </p>
 
+    <h2>Comandos para Orquestación</h2>
+    <ul>
+      <li>
+        <code>docker compose --version</code>: ver la versión de docker compose
+      </li>
+      <li>
+        <code>docker compose build</code>: Construye las imágenes definidas en
+        el docker-compose.yml (usa los Dockerfile de cada servicio si
+        corresponde).
+      </li>
+      <li>
+        <code>docker compose up</code>: crear y arrancar los contenedores
+        definidos en el archivo docker-compose.yml
+      </li>
+      <li>
+        <code>docker compose up -d</code>: crear y arrancar los contenedores en
+        segundo plano
+      </li>
+      <li>
+        <code>docker compose ps</code>: listar los contenedores gestionados por
+        docker compose
+      </li>
+      <li>
+        <code>docker compose stop</code>: detener los contenedores sin
+        eliminarlos
+      </li>
+      <li>
+        <code>docker compose start</code>: iniciar contenedores sin recrearlos
+      </li>
+      <li>
+        <code>docker compose restart</code>: reiniciar los contenedores
+        gestionados por docker compose
+      </li>
+      <li>
+        <code>docker compose down</code>: detener y eliminar los contenedores,
+        redes y volúmenes definidos en el archivo docker-compose.yml
+      </li>
+      <li>
+        <code>docker compose down -v</code>: detener y eliminar los
+        contenedores, redes y volúmenes definidos en el archivo
+        docker-compose.yml
+      </li>
+    </ul>
+
     <h2>Creación de imágenes con Docker</h2>
     <p>
       Podemos tener un archivo del tipo “dockerfile”, que al usar el comando
-      “buid” pasa a ser una imagen y usando el comando “run” pasa a ser un
+      “build” pasa a ser una imagen y usando el comando “run” pasa a ser un
       contenedor.
     </p>
     <p>
@@ -185,7 +245,11 @@
     </p>
     <ul>
       <li>
-        <code>Docker volumen prune</code>: borra todos los volúmenes no
+        <code>docker run -v ./html:/usr/share/nginx/html nginx </code>: ejemplo
+        para conectar un volumen
+      </li>
+      <li>
+        <code>docker volumen prune</code>: borra todos los volúmenes no
         utilizados
       </li>
     </ul>
